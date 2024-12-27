@@ -1,0 +1,15 @@
+name: CI/CD
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  run-curl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run curl command
+        run: |
+          curl https://sum.golang.org/lookup/github.com/$GITHUB_REPOSITORY@$GITHUB_REF_NAME
