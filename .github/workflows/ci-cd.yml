@@ -12,4 +12,6 @@ jobs:
     steps:
       - name: Run curl command
         run: |
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_REF_NAME
           curl https://sum.golang.org/lookup/github.com/$GITHUB_REPOSITORY@$GITHUB_REF_NAME
