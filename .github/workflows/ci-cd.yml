@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run curl command
+      # see https://pkg.go.dev/about#adding-a-package
+      - name: Update pkg.go.dev
         run: |
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_REF_NAME
-          curl https://sum.golang.org/lookup/github.com/$GITHUB_REPOSITORY@$GITHUB_REF_NAME
+          ESCAPED_MODULE=echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]'
+          curl https://proxy.golang.org/github.com/$ESCAPED_MODULE/@v/$GITHUB_REF_NAME.info
