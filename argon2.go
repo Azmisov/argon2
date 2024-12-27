@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// This is a fork of the standard library x/crypto/argon2, exposing additional Argon2 parameters. It
-// implements the key derivation function Argon2. Argon2 was selected as the winner of the Password
-// Hashing Competition and can be used to derive cryptographic keys from passwords.
+// Package argon2 implements the key derivation function Argon2, with extra parameters supported.
+// This is a fork of the standard library x/crypto/argon2. It implements the key derivation function
+// Argon2. Argon2 was selected as the winner of the Password Hashing Competition and can be used to
+// derive cryptographic keys from passwords.
 //
 // For a detailed specification of Argon2 see [1].
 //
