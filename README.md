@@ -1,5 +1,7 @@
 # Argon2 Go
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/Azmisov/argon2.svg)](https://pkg.go.dev/github.com/Azmisov/argon2)
+
 This is a fork of the standard library `x/crypto/argon2`, exposing additional Argon2 parameters. It
 implements the key derivation function Argon2. Argon2 was selected as the winner of the Password
 Hashing Competition and can be used to derive cryptographic keys from passwords.
