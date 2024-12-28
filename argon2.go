@@ -9,26 +9,9 @@
 //
 // For a detailed specification of Argon2 see [1].
 //
-// # Argon2i
-//
-// Argon2i is the side-channel resistant version of Argon2. It uses data-independent memory access,
-// which is preferred for password hashing and password-based key derivation. Argon2i requires more
-// passes over memory than Argon2id to protect from trade-off attacks. The recommended parameters
-// (taken from [2]) for non-interactive operations are time=3 and to use the maximum available
-// memory.
-//
-// # Argon2id
-//
-// Argon2id is a hybrid version of Argon2 combining Argon2i and Argon2d. It is recommended[3] by
-// OWASP for normal password hashing. It uses data-independent memory access for the first half of
-// the first iteration over the memory and data-dependent memory access for the rest. Argon2id is
-// side-channel resistant and provides better brute- force cost savings due to time-memory tradeoffs
-// than Argon2i. The recommended parameters for non-interactive operations (taken from [2]) are
-// time=1 and to use the maximum available memory.
-//
-// [1] https://github.com/P-H-C/phc-winner-argon2/blob/master/argon2-specs.pdf
-// [2] https://tools.ietf.org/html/draft-irtf-cfrg-argon2-03#section-9.3
-// [3] https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#argon2id
+//  1. https://github.com/P-H-C/phc-winner-argon2/blob/master/argon2-specs.pdf
+//  2. https://tools.ietf.org/html/draft-irtf-cfrg-argon2-03#section-9.3
+//  3. https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#argon2id
 package argon2
 
 import (
@@ -41,15 +24,24 @@ import (
 // The Argon2 version implemented by this package.
 const Version = 0x13
 
-const (
-	Argon2d = iota
-	Argon2i
-	Argon2id
-)
+// Argon2i is the side-channel resistant version of Argon2. It uses data-independent memory access,
+// which is preferred for password hashing and password-based key derivation. Argon2i requires more
+// passes over memory than Argon2id to protect from trade-off attacks. The recommended parameters
+// (taken from [2]) for non-interactive operations are time=3 and to use the maximum available
+// memory.
+const Argon2i = 1
+
+// Argon2id is a hybrid version of Argon2 combining Argon2i and Argon2d. It is recommended[3] by
+// OWASP for normal password hashing. It uses data-independent memory access for the first half of
+// the first iteration over the memory and data-dependent memory access for the rest. Argon2id is
+// side-channel resistant and provides better brute- force cost savings due to time-memory tradeoffs
+// than Argon2i. The recommended parameters for non-interactive operations (taken from [2]) are
+// time=1 and to use the maximum available memory.
+const Argon2id = 2
 
 // DeriveKey derives a key from password, salt, secret (a.k.a key or pepper), data, and cost
-// parameters. The mode is one of Argon2d, Argon2i, or Argon2id. You may pass nil for any of salt,
-// secret, or data to exclude them from the hash. A byte slice of length keyLen that can be used as
+// parameters. The mode is one of Argon2i or Argon2id. You may pass nil for any of salt, secret, or
+// data to exclude them from the hash. A byte slice of length keyLen that can be used as
 // cryptographic key. The CPU cost and parallelism degree must be greater than zero.
 //
 // For example, you can get a derived key for e.g. AES-256 (which needs a
