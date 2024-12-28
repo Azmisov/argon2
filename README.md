@@ -12,7 +12,7 @@ argon2.DeriveKey(mode, password, salt, secret, data, time, memory, threads, keyL
 
 Additional parameters supported in this fork:
 
-- `mode`: one of Argon2i or Argon2id
+- `mode`: one of Argon2d, Argon2i, or Argon2id
 - `secret`: commonly used to include a secret key or pepper in the hash; the secret is accessed at
   the application level, not stored in the database alongside the salt; an attacker who only has
   access to the database cannot crack any hashed passwords

@@ -45,7 +45,7 @@ func testArgon2d(t *testing.T) {
 		0xf8, 0x68, 0xe3, 0xbe, 0x39, 0x84, 0xf3, 0xc1,
 		0xa1, 0x3a, 0x4d, 0xb9, 0xfa, 0xbe, 0x4a, 0xcb,
 	}
-	hash := deriveKey(Argon2d, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
+	hash := DeriveKey(Argon2d, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
 	if !bytes.Equal(hash, want) {
 		t.Errorf("derived key does not match - got: %s , want: %s", hex.EncodeToString(hash), hex.EncodeToString(want))
 	}
@@ -58,7 +58,7 @@ func testArgon2i(t *testing.T) {
 		0xc8, 0xde, 0x6b, 0x01, 0x6d, 0xd3, 0x88, 0xd2,
 		0x99, 0x52, 0xa4, 0xc4, 0x67, 0x2b, 0x6c, 0xe8,
 	}
-	hash := deriveKey(Argon2i, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
+	hash := DeriveKey(Argon2i, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
 	if !bytes.Equal(hash, want) {
 		t.Errorf("derived key does not match - got: %s , want: %s", hex.EncodeToString(hash), hex.EncodeToString(want))
 	}
@@ -71,7 +71,7 @@ func testArgon2id(t *testing.T) {
 		0xd0, 0x1e, 0xf0, 0x45, 0x2d, 0x75, 0xb6, 0x5e,
 		0xb5, 0x25, 0x20, 0xe9, 0x6b, 0x01, 0xe6, 0x59,
 	}
-	hash := deriveKey(Argon2id, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
+	hash := DeriveKey(Argon2id, genKatPassword, genKatSalt, genKatSecret, genKatAAD, 3, 32, 4, 32)
 	if !bytes.Equal(hash, want) {
 		t.Errorf("derived key does not match - got: %s , want: %s", hex.EncodeToString(hash), hex.EncodeToString(want))
 	}
@@ -84,7 +84,7 @@ func TestVectors(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Test %d: failed to decode hash: %v", i, err)
 		}
-		hash := deriveKey(v.mode, password, salt, nil, nil, v.time, v.memory, v.threads, uint32(len(want)))
+		hash := DeriveKey(v.mode, password, salt, nil, nil, v.time, v.memory, v.threads, uint32(len(want)))
 		if !bytes.Equal(hash, want) {
 			t.Errorf("Test %d - got: %s want: %s", i, hex.EncodeToString(hash), hex.EncodeToString(want))
 		}
@@ -96,7 +96,7 @@ func benchmarkArgon2(mode int, time, memory uint32, threads uint8, keyLen uint32
 	salt := []byte("choosing random salts is hard")
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		deriveKey(mode, password, salt, nil, nil, time, memory, threads, keyLen)
+		DeriveKey(mode, password, salt, nil, nil, time, memory, threads, keyLen)
 	}
 }
 
